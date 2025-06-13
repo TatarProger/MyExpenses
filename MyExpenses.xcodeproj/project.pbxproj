@@ -11,23 +11,16 @@
 		A2826CA02DF38AEB00746739 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826C9F2DF38AEB00746739 /* ContentView.swift */; };
 		A2826CA22DF38AEC00746739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2826CA12DF38AEC00746739 /* Assets.xcassets */; };
 		A2826CA52DF38AEC00746739 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2826CA42DF38AEC00746739 /* Preview Assets.xcassets */; };
-		A2826CAF2DF3B97200746739 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CAE2DF3B97200746739 /* Accounts.swift */; };
+		A2826CAF2DF3B97200746739 /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CAE2DF3B97200746739 /* BankAccount.swift */; };
 		A2826CB12DF48D2600746739 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CB02DF48D2600746739 /* Transaction.swift */; };
-		A2826CB42DF5A17A00746739 /* AccountCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CB32DF5A17A00746739 /* AccountCreateRequest.swift */; };
-		A2826CB62DF5A19200746739 /* AccountUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CB52DF5A19200746739 /* AccountUpdateRequest.swift */; };
-		A2826CB82DF5A1AE00746739 /* AccountsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CB72DF5A1AE00746739 /* AccountsResponse.swift */; };
-		A2826CBA2DF5A32B00746739 /* AccountState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CB92DF5A32B00746739 /* AccountState.swift */; };
-		A2826CBC2DF5A33F00746739 /* AccountHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CBB2DF5A33F00746739 /* AccountHistory.swift */; };
-		A2826CBE2DF5A35500746739 /* AccountHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CBD2DF5A35500746739 /* AccountHistoryResponse.swift */; };
-		A2826CC02DF5A36400746739 /* StatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CBF2DF5A36400746739 /* StatItem.swift */; };
 		A2826CC22DF5A37A00746739 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CC12DF5A37A00746739 /* Category.swift */; };
-		A2826CC42DF5A38E00746739 /* TransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CC32DF5A38E00746739 /* TransactionRequest.swift */; };
-		A2826CC62DF5A3A800746739 /* TransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CC52DF5A3A800746739 /* TransactionResponse.swift */; };
-		A2826CC82DF5A3B900746739 /* AccountBrief.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CC72DF5A3B900746739 /* AccountBrief.swift */; };
 		A2826CCB2DF5CCAA00746739 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CCA2DF5CCAA00746739 /* CategoriesService.swift */; };
 		A2826CCD2DF5D2C800746739 /* BankAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CCC2DF5D2C800746739 /* BankAccountsService.swift */; };
 		A2826CCF2DF5DD7100746739 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CCE2DF5DD7100746739 /* TransactionsService.swift */; };
 		A2826CDA2DF5E94700746739 /* MyExpensesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CD92DF5E94700746739 /* MyExpensesTests.swift */; };
+		A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CF92DF8BB8D00746739 /* TransactionRequest.swift */; };
+		A2826CFC2DF9FAEE00746739 /* AccountBrief.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CFB2DF9FAED00746739 /* AccountBrief.swift */; };
+		A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,24 +39,17 @@
 		A2826C9F2DF38AEB00746739 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A2826CA12DF38AEC00746739 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2826CA42DF38AEC00746739 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A2826CAE2DF3B97200746739 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		A2826CAE2DF3B97200746739 /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
 		A2826CB02DF48D2600746739 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		A2826CB32DF5A17A00746739 /* AccountCreateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreateRequest.swift; sourceTree = "<group>"; };
-		A2826CB52DF5A19200746739 /* AccountUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUpdateRequest.swift; sourceTree = "<group>"; };
-		A2826CB72DF5A1AE00746739 /* AccountsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsResponse.swift; sourceTree = "<group>"; };
-		A2826CB92DF5A32B00746739 /* AccountState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountState.swift; sourceTree = "<group>"; };
-		A2826CBB2DF5A33F00746739 /* AccountHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHistory.swift; sourceTree = "<group>"; };
-		A2826CBD2DF5A35500746739 /* AccountHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHistoryResponse.swift; sourceTree = "<group>"; };
-		A2826CBF2DF5A36400746739 /* StatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatItem.swift; sourceTree = "<group>"; };
 		A2826CC12DF5A37A00746739 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		A2826CC32DF5A38E00746739 /* TransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRequest.swift; sourceTree = "<group>"; };
-		A2826CC52DF5A3A800746739 /* TransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionResponse.swift; sourceTree = "<group>"; };
-		A2826CC72DF5A3B900746739 /* AccountBrief.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBrief.swift; sourceTree = "<group>"; };
 		A2826CCA2DF5CCAA00746739 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		A2826CCC2DF5D2C800746739 /* BankAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsService.swift; sourceTree = "<group>"; };
 		A2826CCE2DF5DD7100746739 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
 		A2826CD72DF5E94700746739 /* MyExpensesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyExpensesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2826CD92DF5E94700746739 /* MyExpensesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExpensesTests.swift; sourceTree = "<group>"; };
+		A2826CF92DF8BB8D00746739 /* TransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRequest.swift; sourceTree = "<group>"; };
+		A2826CFB2DF9FAED00746739 /* AccountBrief.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBrief.swift; sourceTree = "<group>"; };
+		A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPut.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,19 +112,12 @@
 		A2826CAB2DF38B0000746739 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A2826CAE2DF3B97200746739 /* Accounts.swift */,
+				A2826CAE2DF3B97200746739 /* BankAccount.swift */,
 				A2826CB02DF48D2600746739 /* Transaction.swift */,
-				A2826CB32DF5A17A00746739 /* AccountCreateRequest.swift */,
-				A2826CB52DF5A19200746739 /* AccountUpdateRequest.swift */,
-				A2826CB72DF5A1AE00746739 /* AccountsResponse.swift */,
-				A2826CB92DF5A32B00746739 /* AccountState.swift */,
-				A2826CBB2DF5A33F00746739 /* AccountHistory.swift */,
-				A2826CBD2DF5A35500746739 /* AccountHistoryResponse.swift */,
-				A2826CBF2DF5A36400746739 /* StatItem.swift */,
 				A2826CC12DF5A37A00746739 /* Category.swift */,
-				A2826CC32DF5A38E00746739 /* TransactionRequest.swift */,
-				A2826CC52DF5A3A800746739 /* TransactionResponse.swift */,
-				A2826CC72DF5A3B900746739 /* AccountBrief.swift */,
+				A2826CF92DF8BB8D00746739 /* TransactionRequest.swift */,
+				A2826CFB2DF9FAED00746739 /* AccountBrief.swift */,
+				A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -261,23 +240,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2826CFC2DF9FAEE00746739 /* AccountBrief.swift in Sources */,
 				A2826CA02DF38AEB00746739 /* ContentView.swift in Sources */,
 				A2826C9E2DF38AEB00746739 /* MyExpensesApp.swift in Sources */,
-				A2826CB62DF5A19200746739 /* AccountUpdateRequest.swift in Sources */,
-				A2826CC42DF5A38E00746739 /* TransactionRequest.swift in Sources */,
 				A2826CCF2DF5DD7100746739 /* TransactionsService.swift in Sources */,
-				A2826CBE2DF5A35500746739 /* AccountHistoryResponse.swift in Sources */,
-				A2826CBC2DF5A33F00746739 /* AccountHistory.swift in Sources */,
-				A2826CBA2DF5A32B00746739 /* AccountState.swift in Sources */,
-				A2826CC62DF5A3A800746739 /* TransactionResponse.swift in Sources */,
-				A2826CB82DF5A1AE00746739 /* AccountsResponse.swift in Sources */,
+				A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */,
+				A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */,
 				A2826CCB2DF5CCAA00746739 /* CategoriesService.swift in Sources */,
-				A2826CC02DF5A36400746739 /* StatItem.swift in Sources */,
-				A2826CC82DF5A3B900746739 /* AccountBrief.swift in Sources */,
-				A2826CB42DF5A17A00746739 /* AccountCreateRequest.swift in Sources */,
 				A2826CB12DF48D2600746739 /* Transaction.swift in Sources */,
 				A2826CCD2DF5D2C800746739 /* BankAccountsService.swift in Sources */,
-				A2826CAF2DF3B97200746739 /* Accounts.swift in Sources */,
+				A2826CAF2DF3B97200746739 /* BankAccount.swift in Sources */,
 				A2826CC22DF5A37A00746739 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
