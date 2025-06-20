@@ -47,95 +47,112 @@ struct TransactionListView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.system(size: 34, weight: .bold))
+            
 
-                HStack {
-                    Text("Всего")
+            ZStack(alignment: .bottomTrailing) {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.system(size: 34, weight: .bold))
+
+                    HStack {
+                        Text("Всего")
+                        Spacer()
+                        Text("\(viewModel.total) ₽")
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+
+                    Text("ОПЕРАЦИИ")
+                        .font(.system(size: 17))
+                        .foregroundColor(Color.gray)
+                        .padding(.leading, 16)
+                        .padding(.top, 16)
+                        
+
+                    switch viewModel.direction {
+                    case .income:
+                        List(viewModel.transactions) { transaction in
+                            incomeCell(transaction)
+                                .listRowInsets(EdgeInsets())
+                                .listRowBackground(Color.clear)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.white)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .listStyle(.plain)
+                        .padding(.horizontal, 5)
+                        .frame(maxHeight: CGFloat(viewModel.transactions.count * 44))
+
+                    case .outcome:
+    //                    List(viewModel.transactions) { transaction in
+    //                        outcomeCell(transaction)
+    //                    }
+    //                    .listStyle(.plain)
+    //                    .cornerRadius(16)
+    //                    .background(Color(UIColor.systemGray6).ignoresSafeArea())
+    //                    .padding(.horizontal, 5)
+                        
+                        List(viewModel.transactions) { transaction in
+                            outcomeCell(transaction)
+                                .listRowInsets(EdgeInsets())
+                                .listRowBackground(Color.clear)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.white)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .listStyle(.plain)
+                        //.padding(.horizontal, 5)
+                        .frame(maxHeight: CGFloat(viewModel.transactions.count * 49))
+
+
+                    }
+                        
+                        
+
                     Spacer()
-                    Text("\(viewModel.total) ₽")
                 }
                 .padding()
-                .background(Color.white)
-                .cornerRadius(10)
-
-                Text("ОПЕРАЦИИ")
-                    .font(.system(size: 17))
-                    .foregroundColor(Color.gray)
-                    .padding(.leading, 16)
-                    .padding(.top, 16)
-                    
-
-                switch viewModel.direction {
-                case .income:
-                    List(viewModel.transactions) { transaction in
-                        incomeCell(transaction)
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(Color.clear)
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.white)
+                .background(Color(UIColor.systemGray6).ignoresSafeArea())
+                .navigationDestination(isPresented: $showHistory) {
+                    MyHistoryView(
+                        viewModel: TransactionHistoryViewModel(
+                            accountId: viewModel.accountId,
+                            direction: viewModel.direction
+                        )
                     )
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .listStyle(.plain)
-                    .padding(.horizontal, 5)
-                    .frame(maxHeight: CGFloat(viewModel.transactions.count * 44))
-
-                case .outcome:
-//                    List(viewModel.transactions) { transaction in
-//                        outcomeCell(transaction)
-//                    }
-//                    .listStyle(.plain)
-//                    .cornerRadius(16)
-//                    .background(Color(UIColor.systemGray6).ignoresSafeArea())
-//                    .padding(.horizontal, 5)
-                    
-                    List(viewModel.transactions) { transaction in
-                        outcomeCell(transaction)
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(Color.clear)
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.white)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .listStyle(.plain)
-                    //.padding(.horizontal, 5)
-                    .frame(maxHeight: CGFloat(viewModel.transactions.count * 49))
-
-
                 }
-                    
-                    
-
-                Spacer()
-            }
-            .padding()
-            .background(Color(UIColor.systemGray6).ignoresSafeArea())
-            .navigationDestination(isPresented: $showHistory) {
-                MyHistoryView(
-                    viewModel: TransactionHistoryViewModel(
-                        accountId: viewModel.accountId,
-                        direction: viewModel.direction
-                    )
-                )
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showHistory = true
-                    } label: {
-                        Image(systemName: "clock") // Замени при необходимости
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showHistory = true
+                        } label: {
+                            Image(systemName: "clock")
+                                .foregroundColor(Color(red: 111/255, green: 93/255, blue: 183/255))
+                        }
                     }
                 }
-            }
-            .onAppear {
-                Task {
-                    try? await viewModel.loadTransactions()
+                .onAppear {
+                    Task {
+                        try? await viewModel.loadTransactions()
+                    }
                 }
+                
+                Button(action: {
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 20, weight: .light)) 
+                        .foregroundColor(.white)
+                        .frame(width: 56, height: 56)
+                        .background(Color.green)
+                        .clipShape(Circle())
+                }
+                .padding(.trailing, 20)
+                .padding(.bottom, 20)
             }
         }
     }
@@ -234,7 +251,7 @@ struct TransactionListView: View {
             }
         }
         .padding(.vertical, 6)
-        .padding(.horizontal, 18) // ← Вернул боковые отступы
+        .padding(.horizontal, 18)
         .background(Color.white)
     }
 
@@ -275,7 +292,7 @@ struct TransactionListView: View {
             }
         }
         .padding(.vertical, 6)
-        .padding(.horizontal, 18) // ← Вернул боковые отступы
+        .padding(.horizontal, 18) 
         .background(Color.white)
     }
 }
