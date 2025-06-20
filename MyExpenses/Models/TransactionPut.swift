@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransactionPut: Decodable {
+struct TransactionPut: Codable {
     let id: Int
     let accountId: Int
     let categoryId: Int

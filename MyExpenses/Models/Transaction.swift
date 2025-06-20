@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Transaction: Decodable {
+struct Transaction: Identifiable, Decodable{
     let id: Int
     let account: AccountBrief
     let category: Category
@@ -200,7 +200,7 @@ extension Transaction {
     
 
 class TransactionsFileCache {
-    private (set) var transactions: [Transaction] = []
+    private(set) var transactions: [Transaction] = []
     
     func addTransaction(_ transaction: Transaction) {
         if transactions.contains(where: {$0.id == transaction.id}) {
