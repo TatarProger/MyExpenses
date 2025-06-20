@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2707B7E2E02BB960054C26D /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2707B7D2E02BB930054C26D /* TransactionListView.swift */; };
+		A2707B8C2E0365AD0054C26D /* MyHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2707B8B2E0365A00054C26D /* MyHistoryView.swift */; };
 		A2826C9E2DF38AEB00746739 /* MyExpensesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */; };
 		A2826CA02DF38AEB00746739 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826C9F2DF38AEB00746739 /* ContentView.swift */; };
 		A2826CA22DF38AEC00746739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2826CA12DF38AEC00746739 /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2707B7D2E02BB930054C26D /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
+		A2707B8B2E0365A00054C26D /* MyHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHistoryView.swift; sourceTree = "<group>"; };
 		A2826C9A2DF38AEB00746739 /* MyExpenses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyExpenses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExpensesApp.swift; sourceTree = "<group>"; };
 		A2826C9F2DF38AEB00746739 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		A2826C9C2DF38AEB00746739 /* MyExpenses */ = {
 			isa = PBXGroup;
 			children = (
+				A2707B8B2E0365A00054C26D /* MyHistoryView.swift */,
+				A2707B7D2E02BB930054C26D /* TransactionListView.swift */,
 				A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */,
 				A2826C9F2DF38AEB00746739 /* ContentView.swift */,
 				A2826CA12DF38AEC00746739 /* Assets.xcassets */,
@@ -242,10 +248,12 @@
 			files = (
 				A2826CFC2DF9FAEE00746739 /* AccountBrief.swift in Sources */,
 				A2826CA02DF38AEB00746739 /* ContentView.swift in Sources */,
+				A2707B8C2E0365AD0054C26D /* MyHistoryView.swift in Sources */,
 				A2826C9E2DF38AEB00746739 /* MyExpensesApp.swift in Sources */,
 				A2826CCF2DF5DD7100746739 /* TransactionsService.swift in Sources */,
 				A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */,
 				A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */,
+				A2707B7E2E02BB960054C26D /* TransactionListView.swift in Sources */,
 				A2826CCB2DF5CCAA00746739 /* CategoriesService.swift in Sources */,
 				A2826CB12DF48D2600746739 /* Transaction.swift in Sources */,
 				A2826CCD2DF5D2C800746739 /* BankAccountsService.swift in Sources */,

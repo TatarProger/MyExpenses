@@ -15,10 +15,51 @@ protocol TransactionsServiceProtocol {
 
 class TransactionsService: TransactionsServiceProtocol {
     
-    private var transactions = [Transaction(id: 1, account: AccountBrief(id: 1, name: "Основной счет", balance: Decimal(1000.00), currency: "RUB"), category: Category(id: 1, name: "Питомцы", emoji: "🦁", income: .income), amount: Decimal(1000.00), transactionDate: ISO8601DateFormatter().date(from: "2004-06-11T00:00:00.000Z"), comment: "", createdAt: ISO8601DateFormatter().date(from: "2025-06-10T15:39:13.576Z") ?? Date(), updatedAt: ISO8601DateFormatter().date(from: "2025-06-10T15:39:13.576Z") ?? Date())]
+    private var transactions = [
+        Transaction(
+            id: 1,
+            account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"),
+            category: Category(id: 1, name: "Питомцы", emoji: "🐶", income: .outcome),
+            amount: 1000,
+            transactionDate: ISO8601DateFormatter().date(from: "2025-06-18T00:01:00.000Z"),
+            comment: "Корм для собаки",
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        Transaction(id: 2, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 2, name: "Зарплата", emoji: "💰", income: .income), amount: 50000, transactionDate: Date(), comment: "Основная зарплата", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 3, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 3, name: "Одежда", emoji: "👗", income: .outcome), amount: 3500, transactionDate: Date(), comment: "Платье", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 4, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 4, name: "Фриланс", emoji: "🧑‍💻", income: .income), amount: 12000, transactionDate: Date(), comment: "Проект сайта", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 5, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 5, name: "Продукты", emoji: "🛒", income: .outcome), amount: 2500, transactionDate: Date(), comment: "Магазин у дома", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 6, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 6, name: "Бонус", emoji: "🎉", income: .income), amount: 8000, transactionDate: Date(), comment: "Годовой бонус", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 7, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 7, name: "Транспорт", emoji: "🚗", income: .outcome), amount: 1200, transactionDate: Date(), comment: "Заправка", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 8, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 8, name: "Проценты", emoji: "🏦", income: .income), amount: 300, transactionDate: Date(), comment: "Счет в банке", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 9, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 9, name: "Кафе", emoji: "☕️", income: .outcome), amount: 700, transactionDate: Date(), comment: "Кофе и десерт", createdAt: Date(), updatedAt: Date()),
+        Transaction(id: 10, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 10, name: "Доп. работа", emoji: "💼", income: .income), amount: 15000, transactionDate: Date(), comment: "Перевод за подработку", createdAt: Date(), updatedAt: Date())
+    ]
+
     
     func fetchTransactionsForPeriod(_ id: Int, _ startDate: Date, _ endDate: Date) async throws -> [Transaction] {
-        transactions.filter{$0.createdAt >= startDate && $0.createdAt <= endDate}
+        
+        print("start->",startDate)
+        print("end->",endDate)
+        
+      
+        
+        let array = transactions.filter {
+            if let date = $0.transactionDate {
+                print(date)
+                
+                print(date > startDate)
+                print(date < endDate)
+                
+                return date >= startDate && date <= endDate
+            } else {
+                print("Отсутвие даты")
+                return false
+            }
+        }
+        
+        return array
     }
 
     func makeTransaction(id: Int, accountId: Int, categoryId: Int, amount: Decimal, transactionDate: Date?, comment: String?) async throws -> TransactionPut {
