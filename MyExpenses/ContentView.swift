@@ -24,13 +24,13 @@ struct ContentView: View {
                 }
             Text("Счет")
                 .tabItem() {
-                    Image("Account")
+                    Image("Account1")
                         .renderingMode(.template)
                     Text("Счет")
                 }
             Text("Статьи")
                 .tabItem() {
-                    Image("Items")
+                    Image("Items1")
                         .renderingMode(.template)
                     Text("Статьи")
                 }
