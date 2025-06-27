@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct MyBalanceView: View {
+    @State private var shakeCoordinator: ShakeDetector.Coordinator?
+
 
     func currencyDisplayName(_ code: String) -> String {
         switch code {
@@ -103,12 +105,20 @@ struct MyBalanceView: View {
                     .padding()
                 }
 
-                ShakeDetector {
+//                ShakeDetector {
+//                    withAnimation(.easeInOut) {
+//                        viewModel.isBalanceHidden.toggle()
+//                    }
+//                }
+//                .frame(width: 0, height: 0)
+                
+                ShakeDetector(onShake: {
                     withAnimation(.easeInOut) {
                         viewModel.isBalanceHidden.toggle()
                     }
-                }
+                }, coordinatorRef: $shakeCoordinator)
                 .frame(width: 0, height: 0)
+
             }
             .refreshable {
                 await viewModel.fetchAccount()
@@ -122,9 +132,19 @@ struct MyBalanceView: View {
                             Task {
                                 await viewModel.saveChanges()
                                 viewModel.isBalanceHidden = false
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    shakeCoordinator?.activate()
+                                }
+                                
+                                
                             }
                         } else {
                             viewModel.enterEditMode()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                shakeCoordinator?.deactivate()
+                            }
                         }
                         isEditing.toggle()
                         isBalanceFocused = false
@@ -171,20 +191,41 @@ struct MyBalanceView: View {
     }
 }
 
-
-
 struct ShakeDetector: UIViewRepresentable {
     var onShake: () -> Void
+    @Binding var coordinatorRef: Coordinator?
+
+    func makeCoordinator() -> Coordinator {
+        let coordinator = Coordinator()
+        DispatchQueue.main.async {
+            self.coordinatorRef = coordinator
+        }
+        return coordinator
+    }
 
     func makeUIView(context: Context) -> ShakeUIView {
         let view = ShakeUIView()
         view.onShake = onShake
+        context.coordinator.view = view
         return view
     }
 
-    func updateUIView(_ uiView: ShakeUIView, context: Context) {}
-}
+    func updateUIView(_ uiView: ShakeUIView, context: Context) {
 
+    }
+
+    class Coordinator {
+        weak var view: ShakeUIView?
+
+        func activate() {
+            view?.becomeFirstResponder()
+        }
+        
+        func deactivate() {
+            view?.resignFirstResponder()
+        }
+    }
+}
 
 
 
