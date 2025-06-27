@@ -7,82 +7,6 @@
 
 import SwiftUI
 
-
-@MainActor
-class TransactionHistoryViewModel: ObservableObject {
-    enum SortType: String, CaseIterable, Identifiable {
-        case byDate = "По дате"
-        case byAmount = "По сумме"
-        
-        var id: String { self.rawValue }
-    }
-
-    let accountId: Int
-    let direction: Direction
-    private let service = TransactionsService()
-
-    @Published var transactions: [Transaction] = []
-//    @Published var startDate: Date
-//    @Published var endDate: Date
-    @Published var startDate: Date {
-        didSet {
-            if startDate > endDate {
-                endDate = startDate
-            }
-            Task { await loadTransactions() }
-        }
-    }
-
-    @Published var endDate: Date {
-        didSet {
-            if endDate < startDate {
-                startDate = endDate
-            }
-            Task { await loadTransactions() }
-        }
-    }
-    @Published var total: Decimal = 0
-    @Published var sortType: SortType = .byDate
-
-    private let calendar = Calendar.current
-
-    init(accountId: Int, direction: Direction) {
-        self.accountId = accountId
-        self.direction = direction
-
-        let now = Date()
-        let end = calendar.startOfDay(for: now)
-        self.endDate = end
-        self.startDate = calendar.date(byAdding: .month, value: -1, to: end) ?? end
-    }
-
-    func loadTransactions() async {
-        let startDateTime = calendar.startOfDay(for: startDate)
-        let endDateTime = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endDate) ?? endDate
-
-        do {
-            let all = try await service.fetchTransactionsForPeriod(accountId, startDateTime, endDateTime)
-            let filtered = all.filter { $0.category.income == direction }
-
-            let sorted: [Transaction]
-            switch sortType {
-            case .byDate:
-                sorted = filtered.sorted { ($0.transactionDate ?? .distantPast) > ($1.transactionDate ?? .distantPast) }
-            case .byAmount:
-                sorted = filtered.sorted { $0.amount > $1.amount }
-            }
-
-            transactions = sorted
-            total = sorted.map { $0.amount }.reduce(0, +)
-        } catch {
-            print("Ошибка загрузки транзакций: \(error)")
-        }
-    }
-}
-
-
-
-
 struct MyHistoryView: View {
     @ObservedObject var viewModel: TransactionHistoryViewModel
     
@@ -194,13 +118,6 @@ struct MyHistoryView: View {
                 .frame(maxHeight: CGFloat(viewModel.transactions.count * 57))
 
             case .outcome:
-//                    List(viewModel.transactions) { transaction in
-//                        outcomeCell(transaction)
-//                    }
-//                    .listStyle(.plain)
-//                    .cornerRadius(16)
-//                    .background(Color(UIColor.systemGray6).ignoresSafeArea())
-//                    .padding(.horizontal, 5)
                 
                 List(viewModel.transactions) { transaction in
                     outcomeCell(transaction)
@@ -244,51 +161,6 @@ struct MyHistoryView: View {
         return formatter.string(from: date)
     }
 
-//    private func incomeCell(_ transaction: Transaction) -> some View {
-//        HStack {
-//            Text(transaction.category.emoji.description)
-//                .font(.system(size: 12))
-//                .frame(width: 23, height: 23)
-//                .background(Color.green)
-//                .cornerRadius(18)
-//
-//            Text(transaction.category.name)
-//                .lineLimit(1)
-//
-//            Spacer()
-//
-//            Text("\(transaction.amount) ₽")
-//            Image(systemName: "chevron.right")
-//                .foregroundColor(.gray)
-//        }
-//        .padding()
-//        .background(Color.white)
-//        .cornerRadius(12)
-//        .listRowInsets(EdgeInsets())
-//    }
-
-//    private func outcomeCell(_ transaction: Transaction) -> some View {
-//        HStack {
-//            Text(transaction.category.emoji.description)
-//                .font(.system(size: 12))
-//                .frame(width: 23, height: 23)
-//                .background(Color.green)
-//                .cornerRadius(18)
-//
-//            Text(transaction.category.name)
-//                .lineLimit(1)
-//
-//            Spacer()
-//
-//            Text("\(transaction.amount) ₽")
-//            Image(systemName: "chevron.right")
-//                .foregroundColor(.gray)
-//        }
-//        .padding()
-//        .background(Color.white)
-//        .cornerRadius(12)
-//        .listRowInsets(EdgeInsets())
-//    }
     
     private func incomeCell(_ transaction: Transaction) -> some View {
         HStack(alignment: .top, spacing: 12) {
