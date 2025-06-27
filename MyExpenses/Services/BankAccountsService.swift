@@ -19,7 +19,8 @@ class BankAccountsService: BankAccountsServiceProtocol {
     func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount {
         let bankAccount = bankAccounts.first(where: ){$0.id == id}
         
-        return BankAccount(id: id, userId: bankAccount?.userId ?? 0, name: name, balance: balance, currency: currency, createdAt: bankAccount?.createdAt ?? Date(), updatedAt: bankAccount?.updatedAt ?? Date())
+        bankAccounts[0] = BankAccount(id: id, userId: bankAccount?.userId ?? 0, name: name, balance: balance, currency: currency, createdAt: bankAccount?.createdAt ?? Date(), updatedAt: bankAccount?.updatedAt ?? Date())
+        return bankAccounts[0]
     }
     
     func fetchBankAcccount() async throws -> BankAccount {
