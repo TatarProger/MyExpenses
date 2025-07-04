@@ -75,4 +75,19 @@ class TransactionHistoryViewModel: ObservableObject {
             print("Ошибка загрузки транзакций: \(error)")
         }
     }
+    
+    func dateFormatted(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateFormat = "d MMMM yyyy"
+        return formatter.string(from: date)
+    }
+
+    
+    
+    func timeFormatted(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
 }

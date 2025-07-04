@@ -28,7 +28,7 @@ struct ContentView: View {
                         .renderingMode(.template)
                     Text("Счет")
                 }
-            Text("Статьи")
+            MyCategoriesView()
                 .tabItem() {
                     Image("Items1")
                         .renderingMode(.template)
