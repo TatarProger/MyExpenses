@@ -25,6 +25,7 @@
 		A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CF92DF8BB8D00746739 /* TransactionRequest.swift */; };
 		A2826CFC2DF9FAEE00746739 /* AccountBrief.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CFB2DF9FAED00746739 /* AccountBrief.swift */; };
 		A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */; };
+		A2BBA5542E184688002F8024 /* TransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BBA5532E184682002F8024 /* TransactionCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,10 +59,12 @@
 		A2826CF92DF8BB8D00746739 /* TransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRequest.swift; sourceTree = "<group>"; };
 		A2826CFB2DF9FAED00746739 /* AccountBrief.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBrief.swift; sourceTree = "<group>"; };
 		A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPut.swift; sourceTree = "<group>"; };
+		A2BBA5532E184682002F8024 /* TransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A2BBA31B2E0F1D09002F8024 /* ModelViews */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ModelViews; sourceTree = "<group>"; };
+		A2BBA5552E184C16002F8024 /* MyCategoriesView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MyCategoriesView; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 		A272A4842E0EE827004190C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A2BBA5532E184682002F8024 /* TransactionCellView.swift */,
+				A2BBA5552E184C16002F8024 /* MyCategoriesView */,
 				A272A4162E0D9CC3004190C9 /* SpoilerView.swift */,
 				A272A3F92E0AC184004190C9 /* MyBalanceView.swift */,
 				A2707B8B2E0365A00054C26D /* MyHistoryView.swift */,
@@ -182,6 +187,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				A2BBA31B2E0F1D09002F8024 /* ModelViews */,
+				A2BBA5552E184C16002F8024 /* MyCategoriesView */,
 			);
 			name = MyExpenses;
 			productName = MyExpenses;
@@ -275,6 +281,7 @@
 				A2826C9E2DF38AEB00746739 /* MyExpensesApp.swift in Sources */,
 				A2826CCF2DF5DD7100746739 /* TransactionsService.swift in Sources */,
 				A272A4172E0D9CC4004190C9 /* SpoilerView.swift in Sources */,
+				A2BBA5542E184688002F8024 /* TransactionCellView.swift in Sources */,
 				A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */,
 				A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */,
 				A2707B7E2E02BB960054C26D /* TransactionListView.swift in Sources */,

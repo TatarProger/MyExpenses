@@ -26,7 +26,6 @@ class TransactionsService: TransactionsServiceProtocol {
             createdAt: Date(),
             updatedAt: Date()
         ),
-        Transaction(id: 2, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 2, name: "Зарплата", emoji: "💰", income: .income), amount: 50000, transactionDate: Date(), comment: "Основная зарплата", createdAt: Date(), updatedAt: Date()),
         Transaction(id: 3, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 3, name: "Одежда", emoji: "👗", income: .outcome), amount: 3500, transactionDate: Date(), comment: "Платье", createdAt: Date(), updatedAt: Date()),
         Transaction(id: 4, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 4, name: "Фриланс", emoji: "🧑‍💻", income: .income), amount: 12000, transactionDate: Date(), comment: "Проект сайта", createdAt: Date(), updatedAt: Date()),
         Transaction(id: 5, account: AccountBrief(id: 1, name: "Основной счет", balance: 1000, currency: "RUB"), category: Category(id: 5, name: "Продукты", emoji: "🛒", income: .outcome), amount: 2500, transactionDate: Date(), comment: "Магазин у дома", createdAt: Date(), updatedAt: Date()),
