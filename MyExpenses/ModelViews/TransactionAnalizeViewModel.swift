@@ -1,14 +1,13 @@
 //
-//  Untitled.swift
+//  TransactionAnalizeViewModel.swift
 //  MyExpenses
 //
-//  Created by Rishat Zakirov on 27.06.2025.
+//  Created by Rishat Zakirov on 11.07.2025.
 //
 
 import SwiftUI
-
 @MainActor
-class TransactionHistoryViewModel: ObservableObject {
+class TransactionAnalizeViewModel: ObservableObject {
     enum SortType: String, CaseIterable, Identifiable {
         case byDate = "По дате"
         case byAmount = "По сумме"
@@ -19,6 +18,9 @@ class TransactionHistoryViewModel: ObservableObject {
     let accountId: Int
     let direction: Direction
     private var service = TransactionsService(categoriesService: CategoriesService())
+    
+    var triggerReload: (() -> Void)?
+
 
     @Published var transactions: [Transaction] = []
     @Published var startDate: Date {
@@ -26,6 +28,7 @@ class TransactionHistoryViewModel: ObservableObject {
             if startDate > endDate {
                 endDate = startDate
             }
+            triggerReload?()
             Task { await loadTransactions() }
         }
     }
@@ -35,6 +38,7 @@ class TransactionHistoryViewModel: ObservableObject {
             if endDate < startDate {
                 startDate = endDate
             }
+            triggerReload?()
             Task { await loadTransactions() }
         }
     }

@@ -13,7 +13,7 @@ class MyCategoriesViewModel: ObservableObject {
     @Published var transactions: [Transaction] = []
     @Published var isLoading: Bool = false
 
-    let service = TransactionsService()
+    let service = TransactionsService(categoriesService: CategoriesService())
 
     var filteredTransactions: [Transaction] {
         guard !searchText.isEmpty else { return transactions }

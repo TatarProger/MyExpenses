@@ -14,7 +14,7 @@ protocol CategoriesServiceProtocol {
 
 class CategoriesService: CategoriesServiceProtocol {
     
-    private let mockCategories: [Category] = [Category(id: 1, name: "Одежда", emoji: "👕", income: .income), Category(id: 2, name: "Питомец", emoji: "🐶", income: .income), Category(id: 3, name: "Еда", emoji: "🍕", income: .outcome), Category(id: 4, name: "Квартира", emoji: "🏠", income: .outcome)]
+    private let mockCategories: [Category] = [Category(id: 1, name: "Питомцы", emoji: "🐶", income: .outcome), Category(id: 3, name: "Одежда", emoji: "👗", income: .outcome), Category(id: 4, name: "Фриланс", emoji: "🧑‍💻", income: .income), Category(id: 5, name: "Продукты", emoji: "🛒", income: .outcome), Category(id: 6, name: "Бонус", emoji: "🎉", income: .income), Category(id: 7, name: "Транспорт", emoji: "🚗", income: .outcome), Category(id: 8, name: "Проценты", emoji: "🏦", income: .income), Category(id: 9, name: "Кафе", emoji: "☕️", income: .outcome), Category(id: 10, name: "Доп. работа", emoji: "💼", income: .income)]
     
     func fetchCategories() async throws -> [Category] {
         return mockCategories

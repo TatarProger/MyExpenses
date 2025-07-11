@@ -15,6 +15,12 @@ protocol TransactionsServiceProtocol {
 
 class TransactionsService: TransactionsServiceProtocol {
     
+    private var categoriesService: CategoriesService
+
+    init(categoriesService: CategoriesService) {
+        self.categoriesService = categoriesService
+    }
+    
     private var transactions = [
         Transaction(
             id: 1,
@@ -60,19 +66,98 @@ class TransactionsService: TransactionsServiceProtocol {
         
         return array
     }
-
-    func makeTransaction(id: Int, accountId: Int, categoryId: Int, amount: Decimal, transactionDate: Date?, comment: String?) async throws -> TransactionPut {
-        TransactionPut(id: id, accountId: accountId, categoryId: categoryId, amount: amount, transactionDate: transactionDate, comment: comment)
+    
+    func makeTransaction(
+        id: Int,
+        accountId: Int,
+        categoryId: Int,
+        amount: Decimal,
+        transactionDate: Date?,
+        comment: String?
+    ) async throws -> TransactionPut {
+        
+        let account = AccountBrief(id: accountId, name: "Основной счет", balance: 0, currency: "RUB")
+        
+        // Получаем категории из CategoriesService
+        let allCategories = try await categoriesService.fetchCategories()
+        guard let category = allCategories.first(where: { $0.id == categoryId }) else {
+            throw NSError(domain: "CategoryNotFound", code: 404, userInfo: nil)
+        }
+        
+        let transaction = Transaction(
+            id: id,
+            account: account,
+            category: category,
+            amount: amount,
+            transactionDate: transactionDate ?? Date(),
+            comment: comment,
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+        
+        transactions.append(transaction)
+        
+        return TransactionPut(
+            id: id,
+            accountId: accountId,
+            categoryId: categoryId,
+            amount: amount,
+            transactionDate: transactionDate,
+            comment: comment
+        )
     }
     
-    func updateTransaction(_ id: Int, _ accountId: Int, _ categoryId: Int, amount: Decimal, _ transactionDate: Date, _ comment: String) async throws -> Transaction {
-        let transaction = transactions.first(where: ) {$0.id == id}
-        let account = AccountBrief(id: accountId, name: transaction?.account.name ?? "", balance: transaction?.account.balance ?? Decimal(), currency: transaction?.account.currency ?? "")
-        
-        let category = Category(id: categoryId, name: transaction?.category.name ?? "", emoji: transaction?.category.emoji ?? " ", income: transaction?.category.income ?? Direction.income)
-        
-        return Transaction(id: transaction?.id ?? 0, account: account, category: category, amount: transaction?.amount ?? Decimal(1000), transactionDate: transaction?.transactionDate, comment: transaction?.comment, createdAt: Date.now, updatedAt: Date.now)
+    func updateTransaction(
+        _ id: Int,
+        _ accountId: Int,
+        _ categoryId: Int,
+        amount: Decimal,
+        _ transactionDate: Date,
+        _ comment: String
+    ) async throws -> Transaction {
+
+        guard let index = transactions.firstIndex(where: { $0.id == id }) else {
+            throw NSError(domain: "TransactionNotFound", code: 404, userInfo: nil)
+        }
+
+        let allCategories = try await categoriesService.fetchCategories()
+        guard let category = allCategories.first(where: { $0.id == categoryId }) else {
+            throw NSError(domain: "CategoryNotFound", code: 404, userInfo: nil)
+        }
+
+        let account = AccountBrief(id: accountId, name: "Основной счет", balance: 0, currency: "RUB")
+
+        let updated = Transaction(
+            id: id,
+            account: account,
+            category: category,
+            amount: amount,
+            transactionDate: transactionDate,
+            comment: comment,
+            createdAt: transactions[index].createdAt,
+            updatedAt: Date()
+        )
+
+        transactions[index] = updated
+        return updated
     }
+
+
+    
+    
+
+//    func makeTransaction(id: Int, accountId: Int, categoryId: Int, amount: Decimal, transactionDate: Date?, comment: String?) async throws -> TransactionPut {
+//        TransactionPut(id: id, accountId: accountId, categoryId: categoryId, amount: amount, transactionDate: transactionDate, comment: comment)
+//    }
+    
+//    func updateTransaction(_ id: Int, _ accountId: Int, _ categoryId: Int, amount: Decimal, _ transactionDate: Date, _ comment: String) async throws -> Transaction {
+//        let transaction = transactions.first(where: ) {$0.id == id}
+//        let account = AccountBrief(id: accountId, name: transaction?.account.name ?? "", balance: transaction?.account.balance ?? Decimal(), currency: transaction?.account.currency ?? "")
+//        
+//        let category = Category(id: categoryId, name: transaction?.category.name ?? "", emoji: transaction?.category.emoji ?? " ", income: transaction?.category.income ?? Direction.income)
+//        
+//        return Transaction(id: transaction?.id ?? 0, account: account, category: category, amount: transaction?.amount ?? Decimal(1000), transactionDate: transaction?.transactionDate, comment: transaction?.comment, createdAt: Date.now, updatedAt: Date.now)
+//    }
     
     func removeTransaction(id: Int) async throws {
         transactions.removeAll(where: ){$0.id == id}

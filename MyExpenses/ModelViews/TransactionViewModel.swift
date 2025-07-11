@@ -12,11 +12,12 @@ class TransactionViewModel: ObservableObject {
     let direction: Direction
     @Published var total: Decimal = 0
     @Published var transactions:[Transaction] = []
-    private let service = TransactionsService()
+    private var service = TransactionsService(categoriesService: CategoriesService())
     
-    init(accountId: Int, direction: Direction) {
+    init(accountId: Int, direction: Direction, transactionService: TransactionsService) {
         self.accountId = accountId
         self.direction = direction
+        self.service = transactionService
     }
     
     func loadTransactions() async throws {
