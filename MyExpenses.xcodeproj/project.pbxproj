@@ -26,6 +26,7 @@
 		A2826CFC2DF9FAEE00746739 /* AccountBrief.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CFB2DF9FAED00746739 /* AccountBrief.swift */; };
 		A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */; };
 		A2BBA5542E184688002F8024 /* TransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BBA5532E184682002F8024 /* TransactionCellView.swift */; };
+		A2BBA7022E205BF1002F8024 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BBA7012E205BE9002F8024 /* AppServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,11 +61,14 @@
 		A2826CFB2DF9FAED00746739 /* AccountBrief.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBrief.swift; sourceTree = "<group>"; };
 		A2826CFD2DFA0B9E00746739 /* TransactionPut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPut.swift; sourceTree = "<group>"; };
 		A2BBA5532E184682002F8024 /* TransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellView.swift; sourceTree = "<group>"; };
+		A2BBA7012E205BE9002F8024 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A2BBA31B2E0F1D09002F8024 /* ModelViews */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ModelViews; sourceTree = "<group>"; };
 		A2BBA5552E184C16002F8024 /* MyCategoriesView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MyCategoriesView; sourceTree = "<group>"; };
+		A2BBA7102E21AFD7002F8024 /* AnalysisView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AnalysisView; sourceTree = "<group>"; };
+		A2BBA7202E21B86D002F8024 /* TransactionEditorView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TransactionEditorView; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 		A272A4842E0EE827004190C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A2BBA7202E21B86D002F8024 /* TransactionEditorView */,
+				A2BBA7102E21AFD7002F8024 /* AnalysisView */,
 				A2BBA5532E184682002F8024 /* TransactionCellView.swift */,
 				A2BBA5552E184C16002F8024 /* MyCategoriesView */,
 				A272A4162E0D9CC3004190C9 /* SpoilerView.swift */,
@@ -120,9 +126,10 @@
 		A2826C9C2DF38AEB00746739 /* MyExpenses */ = {
 			isa = PBXGroup;
 			children = (
+				A2BBA7012E205BE9002F8024 /* AppServices.swift */,
+				A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */,
 				A2BBA31B2E0F1D09002F8024 /* ModelViews */,
 				A272A4842E0EE827004190C9 /* Views */,
-				A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */,
 				A2826CA12DF38AEC00746739 /* Assets.xcassets */,
 				A2826CAB2DF38B0000746739 /* Models */,
 				A2826CC92DF5CC2500746739 /* Services */,
@@ -188,6 +195,8 @@
 			fileSystemSynchronizedGroups = (
 				A2BBA31B2E0F1D09002F8024 /* ModelViews */,
 				A2BBA5552E184C16002F8024 /* MyCategoriesView */,
+				A2BBA7102E21AFD7002F8024 /* AnalysisView */,
+				A2BBA7202E21B86D002F8024 /* TransactionEditorView */,
 			);
 			name = MyExpenses;
 			productName = MyExpenses;
@@ -290,6 +299,7 @@
 				A2826CCD2DF5D2C800746739 /* BankAccountsService.swift in Sources */,
 				A2826CAF2DF3B97200746739 /* BankAccount.swift in Sources */,
 				A2826CC22DF5A37A00746739 /* Category.swift in Sources */,
+				A2BBA7022E205BF1002F8024 /* AppServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

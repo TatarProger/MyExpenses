@@ -34,8 +34,6 @@ struct TransactionCellView: View {
             HStack(spacing: 4) {
                 Text("\(transaction.amount) ₽")
                     .font(.system(size: 16))
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
             }
         }
         .overlay(alignment: .leading) {
