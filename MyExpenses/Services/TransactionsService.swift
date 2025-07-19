@@ -200,7 +200,7 @@ class TransactionsService: TransactionsServiceProtocol {
 
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Это важно, чтобы дата не смещалась!
+        formatter.timeZone = TimeZone(secondsFromGMT: 0) 
 
         let dateString = transactionDate.map { formatter.string(from: $0) }
 
@@ -218,8 +218,8 @@ class TransactionsService: TransactionsServiceProtocol {
             requestBody: requestBody
         )
 
-        print("✅ Отправленный requestBody: \(requestBody)")
-        print("✅ Полученный ответ: \(result)")
+        print(" Отправленный requestBody: \(requestBody)")
+        print(" Полученный ответ: \(result)")
 
         return result
     }
