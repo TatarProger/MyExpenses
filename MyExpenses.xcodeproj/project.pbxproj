@@ -11,9 +11,6 @@
 		A2707B8C2E0365AD0054C26D /* MyHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2707B8B2E0365A00054C26D /* MyHistoryView.swift */; };
 		A272A3FA2E0AC18A004190C9 /* MyBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A272A3F92E0AC184004190C9 /* MyBalanceView.swift */; };
 		A272A4172E0D9CC4004190C9 /* SpoilerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A272A4162E0D9CC3004190C9 /* SpoilerView.swift */; };
-		A2825D542E2B15540047BBEB /* TransactionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2825D532E2B154B0047BBEB /* TransactionStorage.swift */; };
-		A2825D562E2B15700047BBEB /* TransactionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2825D552E2B15680047BBEB /* TransactionEntity.swift */; };
-		A2825D582E2B15B40047BBEB /* TransactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2825D572E2B15AD0047BBEB /* TransactionRepository.swift */; };
 		A2826C9E2DF38AEB00746739 /* MyExpensesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */; };
 		A2826CA02DF38AEB00746739 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2826C9F2DF38AEB00746739 /* ContentView.swift */; };
 		A2826CA22DF38AEC00746739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2826CA12DF38AEC00746739 /* Assets.xcassets */; };
@@ -48,9 +45,6 @@
 		A2707B8B2E0365A00054C26D /* MyHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHistoryView.swift; sourceTree = "<group>"; };
 		A272A3F92E0AC184004190C9 /* MyBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBalanceView.swift; sourceTree = "<group>"; };
 		A272A4162E0D9CC3004190C9 /* SpoilerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoilerView.swift; sourceTree = "<group>"; };
-		A2825D532E2B154B0047BBEB /* TransactionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStorage.swift; sourceTree = "<group>"; };
-		A2825D552E2B15680047BBEB /* TransactionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEntity.swift; sourceTree = "<group>"; };
-		A2825D572E2B15AD0047BBEB /* TransactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRepository.swift; sourceTree = "<group>"; };
 		A2826C9A2DF38AEB00746739 /* MyExpenses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyExpenses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExpensesApp.swift; sourceTree = "<group>"; };
 		A2826C9F2DF38AEB00746739 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,16 +107,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A2825D522E2B14EE0047BBEB /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				A2825D572E2B15AD0047BBEB /* TransactionRepository.swift */,
-				A2825D552E2B15680047BBEB /* TransactionEntity.swift */,
-				A2825D532E2B154B0047BBEB /* TransactionStorage.swift */,
-			);
-			path = Storage;
-			sourceTree = "<group>";
-		};
 		A2826C912DF38AEA00746739 = {
 			isa = PBXGroup;
 			children = (
@@ -144,7 +128,6 @@
 		A2826C9C2DF38AEB00746739 /* MyExpenses */ = {
 			isa = PBXGroup;
 			children = (
-				A2825D522E2B14EE0047BBEB /* Storage */,
 				A2E8359E2E240D5C007CC8D1 /* NetworkClient.swift */,
 				A2BBA7012E205BE9002F8024 /* AppServices.swift */,
 				A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */,
@@ -312,16 +295,13 @@
 				A272A4172E0D9CC4004190C9 /* SpoilerView.swift in Sources */,
 				A2BBA5542E184688002F8024 /* TransactionCellView.swift in Sources */,
 				A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */,
-				A2825D582E2B15B40047BBEB /* TransactionRepository.swift in Sources */,
 				A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */,
 				A2707B7E2E02BB960054C26D /* TransactionListView.swift in Sources */,
 				A2826CCB2DF5CCAA00746739 /* CategoriesService.swift in Sources */,
 				A2826CB12DF48D2600746739 /* Transaction.swift in Sources */,
 				A2E8359F2E240D6C007CC8D1 /* NetworkClient.swift in Sources */,
-				A2825D542E2B15540047BBEB /* TransactionStorage.swift in Sources */,
 				A2826CCD2DF5D2C800746739 /* BankAccountsService.swift in Sources */,
 				A2826CAF2DF3B97200746739 /* BankAccount.swift in Sources */,
-				A2825D562E2B15700047BBEB /* TransactionEntity.swift in Sources */,
 				A2826CC22DF5A37A00746739 /* Category.swift in Sources */,
 				A2BBA7022E205BF1002F8024 /* AppServices.swift in Sources */,
 			);

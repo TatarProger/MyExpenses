@@ -73,11 +73,6 @@ class TransactionEditorViewModel: ObservableObject {
             do {
                 guard let category = selectedCategory else { return }
                 let formattedAmount = Decimal(string: amount.replacingOccurrences(of: ",", with: ".")) ?? 0
-                let localDate = convertToLocal(date)
-
-                let mainAccount = try await accountService.fetchBankAcccount()
-
-                var updatedAccount: BankAccount?
 
                 switch mode {
                 case .edit(let transaction):
@@ -86,28 +81,20 @@ class TransactionEditorViewModel: ObservableObject {
                         transaction.account.id,
                         category.id,
                         amount: formattedAmount,
-                        localDate,
+                        date,
                         comment
                     )
-
-                    let newBalance = mainAccount.balance - transaction.amount + formattedAmount
-                    updatedAccount = try await accountService.changeBankAccount(mainAccount.id, mainAccount.name, newBalance, mainAccount.currency)
-
                 case .create:
+                    let mainAccount = try await accountService.fetchBankAcccount()
                     _ = try await transactionService.makeTransaction(
-                        id: mainAccount.id,
+                        id: Int.random(in: 1000...9999),
                         accountId: mainAccount.id,
                         categoryId: category.id,
                         amount: formattedAmount,
-                        transactionDate: localDate,
+                        transactionDate: date,
                         comment: comment
                     )
-
-                    let newBalance = mainAccount.balance + formattedAmount
-                    updatedAccount = try await accountService.changeBankAccount(mainAccount.id, mainAccount.name, newBalance, mainAccount.currency)
                 }
-
-                print("✅ Баланс обновлен: \(updatedAccount?.balance ?? 0)")
 
                 await onReload?()
                 await MainActor.run { completion() }
@@ -117,13 +104,6 @@ class TransactionEditorViewModel: ObservableObject {
             }
         }
     }
-
-
-    private func convertToLocal(_ date: Date) -> Date {
-        let timezoneOffset = Double(TimeZone.current.secondsFromGMT(for: date))
-        return date.addingTimeInterval(timezoneOffset)
-    }
-
 
     func deleteTransaction(completion: @escaping () -> Void) {
         if case let .edit(transaction) = mode {
@@ -139,34 +119,17 @@ class TransactionEditorViewModel: ObservableObject {
         }
     }
     
-//    func dateFormatted(_ date: Date) -> String {
-//        let formatter = DateFormatter()
-//        formatter.dateStyle = .medium
-//        return formatter.string(from: date)
-//    }
-//    
-//    func timeFormatted(_ date: Date) -> String {
-//        let formatter = DateFormatter()
-//        formatter.timeStyle = .short
-//        return formatter.string(from: date)
-//    }
-    
     func dateFormatted(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.timeZone = .current
-        formatter.locale = Locale(identifier: "ru_RU")
         formatter.dateStyle = .medium
         return formatter.string(from: date)
     }
-
+    
     func timeFormatted(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.timeZone = .current
-        formatter.locale = Locale(identifier: "ru_RU")
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
-
     
     private var decimalSeparator: String {
         Locale.current.decimalSeparator ?? ","

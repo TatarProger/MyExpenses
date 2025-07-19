@@ -133,9 +133,7 @@ struct TransactionEditorView: View {
                     Button(viewModel.mode == .create ? "Создать" : "Сохранить") {
                         if viewModel.isValid {
                             viewModel.handleSubmit {
-                                Task { @MainActor in
-                                    dismiss()
-                                }
+                                dismiss()
                             }
                         } else {
                             viewModel.showAlert = true
@@ -177,6 +175,3 @@ extension View {
         }
     }
 }
-
-
-

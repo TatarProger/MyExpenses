@@ -22,7 +22,6 @@ final class BankAccountsService: BankAccountsServiceProtocol {
         self.networkClient = networkClient
     }
 
-    // Получаем первый аккаунт из списка
     func fetchBankAcccount() async throws -> BankAccount {
         let accounts: [BankAccount] = try await networkClient.request(
             endpoint: "/api/v1/accounts",
@@ -36,31 +35,7 @@ final class BankAccountsService: BankAccountsServiceProtocol {
     }
 
     // Изменяем данные конкретного аккаунта
-//    func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount {
-//        struct Request: Encodable {
-//            let name: String
-//            let balance: String
-//            let currency: String
-//
-//            enum CodingKeys: String, CodingKey {
-//                case name
-//                case balance
-//                case currency
-//            }
-//        }
-//
-//        let balanceString = NSDecimalNumber(decimal: balance).stringValue
-//
-//        let requestBody = Request(name: name, balance: balanceString, currency: currency)
-//
-//        let updatedAccount: BankAccount = try await networkClient.request(
-//            endpoint: "/accounts/\(id)",
-//            method: "PUT",
-//            requestBody: requestBody
-//        )
-//
-//        return updatedAccount
-//    }
+
     
     func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount {
         struct Request: Encodable {
