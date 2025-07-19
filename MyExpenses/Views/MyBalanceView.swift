@@ -19,7 +19,7 @@ struct MyBalanceView: View {
         }
     }
 
-    @StateObject var viewModel = BankAccountViewModel(service: BankAccountsService())
+    @StateObject var viewModel = BankAccountViewModel(service: BankAccountsService(networkClient: NetworkClient(baseURL: URL(string: "https://shmr-finance.ru/api/v1") ?? URL(fileURLWithPath: ""), bearerToken: "jXK6tFet5YGBbfYliKp2raJX")))
     @State private var isEditing = false
     @State private var showCurrencySheet = false
     @FocusState private var isBalanceFocused: Bool
@@ -104,13 +104,6 @@ struct MyBalanceView: View {
                     }
                     .padding()
                 }
-
-//                ShakeDetector {
-//                    withAnimation(.easeInOut) {
-//                        viewModel.isBalanceHidden.toggle()
-//                    }
-//                }
-//                .frame(width: 0, height: 0)
                 
                 ShakeDetector(onShake: {
                     withAnimation(.easeInOut) {
@@ -120,8 +113,34 @@ struct MyBalanceView: View {
                 .frame(width: 0, height: 0)
 
             }
+            
+            .onAppear {
+                Task {
+                    await viewModel.fetchAccount()
+                }
+            }
             .refreshable {
-                await viewModel.fetchAccount()
+                Task {
+                    await viewModel.fetchAccount()
+                }
+            }
+            .overlay {
+                if viewModel.isLoading {
+                    ZStack {
+                        //Color.black.opacity(0.3).ignoresSafeArea()
+                        ProgressView("Загрузка...")
+                            .padding()
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(12)
+                    }
+                }
+            }
+            .alert("Ошибка", isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button("Ок", role: .cancel) {
+                    viewModel.errorMessage = nil
+                }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
             }
             .navigationTitle("Мой счёт")
             .navigationBarTitleDisplayMode(.large)

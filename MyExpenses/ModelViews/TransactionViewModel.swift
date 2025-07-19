@@ -7,29 +7,97 @@
 
 import SwiftUI
 
+//class TransactionViewModel: ObservableObject {
+//    let accountId: Int
+//    let direction: Direction
+//    @Published var total: Decimal = 0
+//    @Published var transactions:[Transaction] = []
+//    private var service = TransactionsService(categoriesService: CategoriesService())
+//    
+//    init(accountId: Int, direction: Direction, transactionService: TransactionsService) {
+//        self.accountId = accountId
+//        self.direction = direction
+//        self.service = transactionService
+//    }
+//    
+//    func loadTransactions() async throws {
+//        let calendar = Calendar.current
+//        let now = Date()
+//        let stratOfDay = calendar.startOfDay(for: now)
+//        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: now) ?? Date()
+//        let transactionsList = try await service.fetchTransactionsForPeriod(accountId, stratOfDay, endOfDay).filter {$0.category.income == direction}
+//        await MainActor.run {
+//            transactions = transactionsList
+//            total = transactionsList.map { $0.amount }.reduce(0, +)
+//        }
+//    }
+//    
+//}
+
+
+
+import SwiftUI
+
 class TransactionViewModel: ObservableObject {
     let accountId: Int
     let direction: Direction
-    @Published var total: Decimal = 0
-    @Published var transactions:[Transaction] = []
-    private var service = TransactionsService(categoriesService: CategoriesService())
     
-    init(accountId: Int, direction: Direction, transactionService: TransactionsService) {
+    @Published var total: Decimal = 0
+    @Published var transactions: [Transaction] = []
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
+    
+
+    private let service: TransactionsServiceProtocol
+
+    init(accountId: Int, direction: Direction, transactionService: TransactionsServiceProtocol) {
         self.accountId = accountId
         self.direction = direction
         self.service = transactionService
     }
+
+//    @MainActor
+//    func loadTransactions() async {
+//        isLoading = true
+//        errorMessage = nil
+//
+//        do {
+//            let calendar = Calendar.current
+//            let now = Date()
+//            let startOfDay = calendar.startOfDay(for: now)
+//            let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: now) ?? now
+//
+//            let fetchedTransactions = try await service.fetchTransactionsForPeriod(accountId, startOfDay, endOfDay)
+//            let filtered = fetchedTransactions.filter { $0.category.income == direction }
+//
+//            transactions = filtered
+//            total = filtered.map { $0.amount }.reduce(0, +)
+//        } catch {
+//            errorMessage = error.localizedDescription
+//        }
+//
+//        isLoading = false
+//    }
     
-    func loadTransactions() async throws {
-        let calendar = Calendar.current
-        let now = Date()
-        let stratOfDay = calendar.startOfDay(for: now)
-        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: now) ?? Date()
-        let transactionsList = try await service.fetchTransactionsForPeriod(accountId, stratOfDay, endOfDay).filter {$0.category.income == direction}
-        await MainActor.run {
-            transactions = transactionsList
-            total = transactionsList.map { $0.amount }.reduce(0, +)
+    @MainActor
+    func loadTransactions() async {
+        isLoading = true
+        errorMessage = nil
+        do {
+            let calendar = Calendar.current
+            let now = Date()
+            let startOfDay = calendar.startOfDay(for: now)
+            let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: now) ?? now
+
+            let fetchedTransactions = try await service.fetchTransactionsForPeriod(accountId, startOfDay, endOfDay)
+            let filtered = fetchedTransactions.filter { $0.category.income == direction }
+
+            transactions = filtered
+            total = filtered.map { $0.amount }.reduce(0, +)
+        } catch {
+            errorMessage = error.localizedDescription
         }
+        isLoading = false
     }
-    
+
 }

@@ -172,6 +172,25 @@ struct TransactionListView: View {
                     }
                 }
             }
+            .overlay {
+                if viewModel.isLoading {
+                    ZStack {
+                        //Color.black.opacity(0.3).ignoresSafeArea()
+                        ProgressView("Загрузка...")
+                            .padding()
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(12)
+                    }
+                }
+            }
+            .alert("Ошибка", isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button("Ок", role: .cancel) {
+                    viewModel.errorMessage = nil
+                }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
+
         }
     }
 }
@@ -234,3 +253,6 @@ private extension TransactionListView {
         }
     }
 }
+
+
+
