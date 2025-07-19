@@ -13,6 +13,7 @@ class AnalysisViewController: UIViewController {
     private let infoTableView = UITableView(frame: .zero, style: .insetGrouped)
     private let operationsTableView = UITableView(frame: .zero, style: .insetGrouped)
 
+    private let spinner = UIActivityIndicatorView(style: .large)
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM yyyy"
@@ -24,7 +25,6 @@ class AnalysisViewController: UIViewController {
         self.viewModel = TransactionAnalizeViewModel(
             accountId: accountId,
             direction: direction,
-            transactionService: AppServices.shared.transactionsService
         )
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,6 +36,7 @@ class AnalysisViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupSpinner()
         loadTransactions()
         
         viewModel.triggerReload = { [weak self] in
@@ -84,6 +85,16 @@ class AnalysisViewController: UIViewController {
         ])
     }
     
+    private func setupSpinner() {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    
     private func openEditor(for transaction: Transaction) {
         let editorView = TransactionEditorView(
             mode: .edit(transaction),
@@ -100,14 +111,39 @@ class AnalysisViewController: UIViewController {
     }
 
 
+//    private func loadTransactions() {
+//        Task {
+//            await viewModel.loadTransactions()
+//            DispatchQueue.main.async {
+//                self.infoTableView.reloadData()
+//                self.operationsTableView.reloadData()
+//            }
+//        }
+//    }
+    
     private func loadTransactions() {
+        spinner.startAnimating()
         Task {
-            await viewModel.loadTransactions()
-            DispatchQueue.main.async {
-                self.infoTableView.reloadData()
-                self.operationsTableView.reloadData()
+            do {
+                try await viewModel.loadTransactions()
+                DispatchQueue.main.async {
+                    self.infoTableView.reloadData()
+                    self.operationsTableView.reloadData()
+                    self.spinner.stopAnimating()
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.spinner.stopAnimating()
+                    self.showErrorAlert(message: error.localizedDescription)
+                }
             }
         }
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
     }
 }
 

@@ -7,24 +7,102 @@
 
 import Foundation
 
+
+
+
 protocol BankAccountsServiceProtocol {
     func fetchBankAcccount() async throws -> BankAccount
     func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount
 }
 
-class BankAccountsService: BankAccountsServiceProtocol {
-    private var bankAccounts = [BankAccount(id: 1, userId: 1, name: "Основной счет", balance: 1000.00, currency: "RUB", createdAt: ISO8601DateFormatter().date(from: "2004-06-11T00:00:00.000Z") ?? Date(), updatedAt: ISO8601DateFormatter().date(from: "2004-06-11T00:00:00.000Z") ?? Date())]
-    
+final class BankAccountsService: BankAccountsServiceProtocol {
+    private let networkClient: NetworkClient
+
+    init(networkClient: NetworkClient) {
+        self.networkClient = networkClient
+    }
+
+    // Получаем первый аккаунт из списка
+    func fetchBankAcccount() async throws -> BankAccount {
+        let accounts: [BankAccount] = try await networkClient.request(
+            endpoint: "/api/v1/accounts",
+            method: "GET",
+            requestBody: EmptyRequest()
+        )
+        guard let firstAccount = accounts.first else {
+            throw NSError(domain: "NoBankAccountFound", code: 404)
+        }
+        return firstAccount
+    }
+
+    // Изменяем данные конкретного аккаунта
+//    func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount {
+//        struct Request: Encodable {
+//            let name: String
+//            let balance: String
+//            let currency: String
+//
+//            enum CodingKeys: String, CodingKey {
+//                case name
+//                case balance
+//                case currency
+//            }
+//        }
+//
+//        let balanceString = NSDecimalNumber(decimal: balance).stringValue
+//
+//        let requestBody = Request(name: name, balance: balanceString, currency: currency)
+//
+//        let updatedAccount: BankAccount = try await networkClient.request(
+//            endpoint: "/accounts/\(id)",
+//            method: "PUT",
+//            requestBody: requestBody
+//        )
+//
+//        return updatedAccount
+//    }
     
     func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount {
-        let bankAccount = bankAccounts.first(where: ){$0.id == id}
-        
-        bankAccounts[0] = BankAccount(id: id, userId: bankAccount?.userId ?? 0, name: name, balance: balance, currency: currency, createdAt: bankAccount?.createdAt ?? Date(), updatedAt: bankAccount?.updatedAt ?? Date())
-        return bankAccounts[0]
+        struct Request: Encodable {
+            let name: String
+            let balance: String
+            let currency: String
+
+            enum CodingKeys: String, CodingKey {
+                case name
+                case balance
+                case currency
+            }
+
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+
+                try container.encode(name, forKey: .name)
+                try container.encode(balance, forKey: .balance)
+                try container.encode(currency, forKey: .currency)
+            }
+        }
+
+        let balanceString = String(format: "%.2f", NSDecimalNumber(decimal: balance).doubleValue)
+        let requestBody = Request(name: name, balance: balanceString, currency: currency)
+
+        let updatedAccount: BankAccount = try await networkClient.request(
+            endpoint: "/accounts/\(id)",
+            method: "PUT",
+            requestBody: requestBody
+        )
+
+        return updatedAccount
     }
-    
-    func fetchBankAcccount() async throws -> BankAccount {
-        bankAccounts[0]
-    }
-    
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -19,11 +19,10 @@ struct MyHistoryView: View {
         case byAmount = "По сумме"
     }
 
-    init(direction: Direction, accountId: Int) {
+    init(direction: Direction, accountId: Int, transactionService: TransactionsServiceProtocol = AppServices.shared.transactionsService) {
         _viewModel = StateObject(wrappedValue: TransactionHistoryViewModel(
             accountId: accountId,
-            direction: direction,
-            transactionService: AppServices.shared.transactionsService
+            direction: direction
         ))
     }
 
@@ -37,7 +36,7 @@ struct MyHistoryView: View {
             }
             .navigationTitle("Моя история")
             .navigationDestination(isPresented: $showAnalize) {
-                MyHistoryViewControllerWrapper(direction: viewModel.direction, accountId: 1)
+                MyHistoryViewControllerWrapper(direction: viewModel.direction, accountId: viewModel.accountId)
                     .ignoresSafeArea()
             }
             .toolbar {
@@ -58,6 +57,25 @@ struct MyHistoryView: View {
         .onChange(of: viewModel.endDate) { _, _ in
             Task { await viewModel.loadTransactions() }
         }
+        .overlay {
+            if viewModel.isLoading {
+                ZStack {
+                    //Color.black.opacity(0.3).ignoresSafeArea()
+                    ProgressView("Загрузка...")
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(12)
+                }
+            }
+        }
+        .alert("Ошибка", isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("Ок", role: .cancel) {
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
+
     }
 }
 

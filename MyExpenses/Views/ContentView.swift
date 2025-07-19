@@ -10,13 +10,13 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            TransactionListView(direction: .outcome, accountId: 1)
+            TransactionListView(direction: .outcome, accountId: 92)
                 .tabItem() {
                     Image("Outcomes")
                         .renderingMode(.template)
                     Text("Расходы")
                 }
-            TransactionListView(direction: .income, accountId: 1)
+            TransactionListView(direction: .income, accountId: 92)
                 .tabItem() {
                     Image("Incomes")
                         .renderingMode(.template)
