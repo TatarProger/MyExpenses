@@ -62,7 +62,7 @@ final class BankAccountsService: BankAccountsServiceProtocol {
         let requestBody = Request(name: name, balance: balanceString, currency: currency)
 
         let updatedAccount: BankAccount = try await networkClient.request(
-            endpoint: "/accounts/\(id)",
+            endpoint: "/api/v1/accounts/\(id)",
             method: "PUT",
             requestBody: requestBody
         )
