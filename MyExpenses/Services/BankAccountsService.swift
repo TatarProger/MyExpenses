@@ -5,10 +5,8 @@
 //  Created by Rishat Zakirov on 08.06.2025.
 //
 
+
 import Foundation
-
-
-
 
 protocol BankAccountsServiceProtocol {
     func fetchBankAcccount() async throws -> BankAccount
@@ -17,26 +15,42 @@ protocol BankAccountsServiceProtocol {
 
 final class BankAccountsService: BankAccountsServiceProtocol {
     private let networkClient: NetworkClient
+    private let storage: BankAccountStorage
 
-    init(networkClient: NetworkClient) {
+    init(networkClient: NetworkClient, storage: BankAccountStorage) {
         self.networkClient = networkClient
+        self.storage = storage
     }
 
     func fetchBankAcccount() async throws -> BankAccount {
-        let accounts: [BankAccount] = try await networkClient.request(
-            endpoint: "/api/v1/accounts",
-            method: "GET",
-            requestBody: EmptyRequest()
-        )
-        guard let firstAccount = accounts.first else {
-            throw NSError(domain: "NoBankAccountFound", code: 404)
+        do {
+            let accounts: [BankAccount] = try await networkClient.request(
+                endpoint: "/api/v1/accounts",
+                method: "GET",
+                requestBody: EmptyRequest()
+            )
+
+            guard let firstAccount = accounts.first else {
+                throw NSError(domain: "NoBankAccountFound", code: 404)
+            }
+
+            try await storage.deleteAll() 
+            try await storage.save(account: firstAccount)
+
+            return firstAccount
+        } catch {
+            print("⚠️ Ошибка загрузки аккаунта из сети: \(error). Пытаемся получить локально...")
+
+            let cached = try await storage.fetchAll()
+            guard let account = cached.first else {
+                throw error
+            }
+
+            print(" Загружено из локального хранилища")
+            return account
         }
-        return firstAccount
     }
 
-    // Изменяем данные конкретного аккаунта
-
-    
     func changeBankAccount(_ id: Int, _ name: String, _ balance: Decimal, _ currency: String) async throws -> BankAccount {
         struct Request: Encodable {
             let name: String
@@ -44,14 +58,11 @@ final class BankAccountsService: BankAccountsServiceProtocol {
             let currency: String
 
             enum CodingKeys: String, CodingKey {
-                case name
-                case balance
-                case currency
+                case name, balance, currency
             }
 
             func encode(to encoder: Encoder) throws {
                 var container = encoder.container(keyedBy: CodingKeys.self)
-
                 try container.encode(name, forKey: .name)
                 try container.encode(balance, forKey: .balance)
                 try container.encode(currency, forKey: .currency)
@@ -67,17 +78,9 @@ final class BankAccountsService: BankAccountsServiceProtocol {
             requestBody: requestBody
         )
 
+        try await storage.deleteAll()
+        try await storage.save(account: updatedAccount)
+
         return updatedAccount
     }
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A21263B42E30455200FE58E2 /* TranactionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21263B32E30412B00FE58E2 /* TranactionStorage.swift */; };
+		A21263B52E30456B00FE58E2 /* TransactionEntityl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21262C12E30394900FE58E2 /* TransactionEntityl.swift */; };
+		A21264962E30618E00FE58E2 /* BankAccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21264952E30618600FE58E2 /* BankAccountEntity.swift */; };
+		A21264982E3061B400FE58E2 /* BankAccountStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21264972E3061AD00FE58E2 /* BankAccountStorage.swift */; };
+		A212649A2E30641300FE58E2 /* CategoriesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21264992E30640D00FE58E2 /* CategoriesEntity.swift */; };
+		A212649C2E30642400FE58E2 /* CategoriesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A212649B2E30641D00FE58E2 /* CategoriesStorage.swift */; };
+		A212649E2E30E5BB00FE58E2 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A212649D2E30E5B000FE58E2 /* NetworkMonitor.swift */; };
+		A21264A02E30E61D00FE58E2 /* NetworkBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A212649F2E30E61800FE58E2 /* NetworkBanner.swift */; };
 		A2707B7E2E02BB960054C26D /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2707B7D2E02BB930054C26D /* TransactionListView.swift */; };
 		A2707B8C2E0365AD0054C26D /* MyHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2707B8B2E0365A00054C26D /* MyHistoryView.swift */; };
 		A272A3FA2E0AC18A004190C9 /* MyBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A272A3F92E0AC184004190C9 /* MyBalanceView.swift */; };
@@ -41,6 +49,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A21262C12E30394900FE58E2 /* TransactionEntityl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEntityl.swift; sourceTree = "<group>"; };
+		A21263B32E30412B00FE58E2 /* TranactionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranactionStorage.swift; sourceTree = "<group>"; };
+		A21264952E30618600FE58E2 /* BankAccountEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountEntity.swift; sourceTree = "<group>"; };
+		A21264972E3061AD00FE58E2 /* BankAccountStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountStorage.swift; sourceTree = "<group>"; };
+		A21264992E30640D00FE58E2 /* CategoriesEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesEntity.swift; sourceTree = "<group>"; };
+		A212649B2E30641D00FE58E2 /* CategoriesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesStorage.swift; sourceTree = "<group>"; };
+		A212649D2E30E5B000FE58E2 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		A212649F2E30E61800FE58E2 /* NetworkBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkBanner.swift; sourceTree = "<group>"; };
 		A2707B7D2E02BB930054C26D /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		A2707B8B2E0365A00054C26D /* MyHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHistoryView.swift; sourceTree = "<group>"; };
 		A272A3F92E0AC184004190C9 /* MyBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBalanceView.swift; sourceTree = "<group>"; };
@@ -91,9 +107,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A21262C02E30393700FE58E2 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				A212649B2E30641D00FE58E2 /* CategoriesStorage.swift */,
+				A21264992E30640D00FE58E2 /* CategoriesEntity.swift */,
+				A21264972E3061AD00FE58E2 /* BankAccountStorage.swift */,
+				A21264952E30618600FE58E2 /* BankAccountEntity.swift */,
+				A21263B32E30412B00FE58E2 /* TranactionStorage.swift */,
+				A21262C12E30394900FE58E2 /* TransactionEntityl.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		A272A4842E0EE827004190C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A212649F2E30E61800FE58E2 /* NetworkBanner.swift */,
 				A2BBA7202E21B86D002F8024 /* TransactionEditorView */,
 				A2BBA7102E21AFD7002F8024 /* AnalysisView */,
 				A2BBA5532E184682002F8024 /* TransactionCellView.swift */,
@@ -128,6 +158,8 @@
 		A2826C9C2DF38AEB00746739 /* MyExpenses */ = {
 			isa = PBXGroup;
 			children = (
+				A212649D2E30E5B000FE58E2 /* NetworkMonitor.swift */,
+				A21262C02E30393700FE58E2 /* Storage */,
 				A2E8359E2E240D5C007CC8D1 /* NetworkClient.swift */,
 				A2BBA7012E205BE9002F8024 /* AppServices.swift */,
 				A2826C9D2DF38AEB00746739 /* MyExpensesApp.swift */,
@@ -286,24 +318,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A21263B52E30456B00FE58E2 /* TransactionEntityl.swift in Sources */,
 				A2826CFC2DF9FAEE00746739 /* AccountBrief.swift in Sources */,
+				A21264A02E30E61D00FE58E2 /* NetworkBanner.swift in Sources */,
+				A212649A2E30641300FE58E2 /* CategoriesEntity.swift in Sources */,
 				A2826CA02DF38AEB00746739 /* ContentView.swift in Sources */,
 				A2707B8C2E0365AD0054C26D /* MyHistoryView.swift in Sources */,
 				A272A3FA2E0AC18A004190C9 /* MyBalanceView.swift in Sources */,
 				A2826C9E2DF38AEB00746739 /* MyExpensesApp.swift in Sources */,
 				A2826CCF2DF5DD7100746739 /* TransactionsService.swift in Sources */,
 				A272A4172E0D9CC4004190C9 /* SpoilerView.swift in Sources */,
+				A21264962E30618E00FE58E2 /* BankAccountEntity.swift in Sources */,
 				A2BBA5542E184688002F8024 /* TransactionCellView.swift in Sources */,
 				A2826CFE2DFA0B9E00746739 /* TransactionPut.swift in Sources */,
 				A2826CFA2DF8BB8D00746739 /* TransactionRequest.swift in Sources */,
 				A2707B7E2E02BB960054C26D /* TransactionListView.swift in Sources */,
+				A212649C2E30642400FE58E2 /* CategoriesStorage.swift in Sources */,
 				A2826CCB2DF5CCAA00746739 /* CategoriesService.swift in Sources */,
 				A2826CB12DF48D2600746739 /* Transaction.swift in Sources */,
 				A2E8359F2E240D6C007CC8D1 /* NetworkClient.swift in Sources */,
+				A21264982E3061B400FE58E2 /* BankAccountStorage.swift in Sources */,
 				A2826CCD2DF5D2C800746739 /* BankAccountsService.swift in Sources */,
 				A2826CAF2DF3B97200746739 /* BankAccount.swift in Sources */,
 				A2826CC22DF5A37A00746739 /* Category.swift in Sources */,
 				A2BBA7022E205BF1002F8024 /* AppServices.swift in Sources */,
+				A212649E2E30E5BB00FE58E2 /* NetworkMonitor.swift in Sources */,
+				A21263B42E30455200FE58E2 /* TranactionStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

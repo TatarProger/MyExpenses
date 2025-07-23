@@ -110,7 +110,7 @@ class TransactionAnalizeViewModel: ObservableObject {
     let accountId: Int
     let direction: Direction
 
-    private let service: TransactionsServiceProtocol
+    private let service: TransactionsService
 
     var triggerReload: (() -> Void)?
 
@@ -142,7 +142,7 @@ class TransactionAnalizeViewModel: ObservableObject {
 
     private let calendar = Calendar.current
 
-    init(accountId: Int, direction: Direction, service: TransactionsServiceProtocol = AppServices.shared.transactionsService) {
+    init(accountId: Int, direction: Direction, service: TransactionsService = AppServices.shared.transactionsService) {
         self.accountId = accountId
         self.direction = direction
         self.service = service

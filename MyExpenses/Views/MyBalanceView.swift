@@ -19,7 +19,9 @@ struct MyBalanceView: View {
         }
     }
 
-    @StateObject var viewModel = BankAccountViewModel(service: BankAccountsService(networkClient: NetworkClient(baseURL: URL(string: "https://shmr-finance.ru/api/v1") ?? URL(fileURLWithPath: ""), bearerToken: "jXK6tFet5YGBbfYliKp2raJX")))
+    @StateObject var viewModel = BankAccountViewModel(
+        service: AppServices.shared.bankAccountsService
+    )
     @State private var isEditing = false
     @State private var showCurrencySheet = false
     @FocusState private var isBalanceFocused: Bool

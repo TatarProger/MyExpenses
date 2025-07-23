@@ -1,0 +1,44 @@
+
+import SwiftData
+import Foundation
+
+@Model
+final class TransactionEntity: Sendable {
+    @Attribute(.unique) var id: Int
+    var accountId: Int
+    var accountName: String
+    var accountBalance: Double
+    var accountCurrency: String
+
+    var categoryId: Int
+    var categoryName: String
+    var categoryEmoji: String
+    var isIncome: Bool
+
+    var amount: Double
+    var transactionDate: Date?
+    var comment: String?
+    var createdAt: Date
+    var updatedAt: Date
+    
+    var isSynced: Bool = false
+
+    init(transaction: Transaction) {
+        self.id = transaction.id
+        self.accountId = transaction.account.id
+        self.accountName = transaction.account.name
+        self.accountBalance = NSDecimalNumber(decimal: transaction.account.balance).doubleValue
+        self.accountCurrency = transaction.account.currency
+
+        self.categoryId = transaction.category.id
+        self.categoryName = transaction.category.name
+        self.categoryEmoji = String(transaction.category.emoji)
+        self.isIncome = transaction.category.income == .income
+
+        self.amount = NSDecimalNumber(decimal: transaction.amount).doubleValue
+        self.transactionDate = transaction.transactionDate
+        self.comment = transaction.comment
+        self.createdAt = transaction.createdAt
+        self.updatedAt = transaction.updatedAt
+    }
+}
