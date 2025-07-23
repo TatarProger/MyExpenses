@@ -58,6 +58,7 @@ struct AccountBrief: Codable, Equatable {
         case id, name, balance, currency
     }
 
+    // ✅ Инициализатор для парсинга из JSON
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -68,8 +69,16 @@ struct AccountBrief: Codable, Equatable {
         balance = Decimal(string: balanceString) ?? 0
 
         currency = try container.decode(String.self, forKey: .currency)
+    }
 
-        print("✅ AccountBrief decoded: id=\(id), balance=\(balance)")
+    // ✅ Ручной инициализатор
+    init(id: Int, name: String, balance: Decimal, currency: String) {
+        self.id = id
+        self.name = name
+        self.balance = balance
+        self.currency = currency
     }
 }
+
+
 

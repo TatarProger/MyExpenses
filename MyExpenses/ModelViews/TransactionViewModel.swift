@@ -48,9 +48,9 @@ class TransactionViewModel: ObservableObject {
     @Published var errorMessage: String?
     
 
-    private let service: TransactionsServiceProtocol
+    private let service: TransactionsService
 
-    init(accountId: Int, direction: Direction, transactionService: TransactionsServiceProtocol) {
+    init(accountId: Int, direction: Direction, transactionService: TransactionsService) {
         self.accountId = accountId
         self.direction = direction
         self.service = transactionService

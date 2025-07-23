@@ -7,51 +7,42 @@
 
 import Foundation
 
-//protocol CategoriesServiceProtocol {
-//    func fetchCategories() async throws  -> [Category]
-//    //func
-//}
-//
-//class CategoriesService: CategoriesServiceProtocol {
-//    
-//    private let mockCategories: [Category] = [Category(id: 1, name: "Питомцы", emoji: "🐶", income: .outcome), Category(id: 3, name: "Одежда", emoji: "👗", income: .outcome), Category(id: 4, name: "Фриланс", emoji: "🧑‍💻", income: .income), Category(id: 5, name: "Продукты", emoji: "🛒", income: .outcome), Category(id: 6, name: "Бонус", emoji: "🎉", income: .income), Category(id: 7, name: "Транспорт", emoji: "🚗", income: .outcome), Category(id: 8, name: "Проценты", emoji: "🏦", income: .income), Category(id: 9, name: "Кафе", emoji: "☕️", income: .outcome), Category(id: 10, name: "Доп. работа", emoji: "💼", income: .income)]
-//    
-//    func fetchCategories() async throws -> [Category] {
-//        return mockCategories
-//    }
-//    
-//    func fetchCategories(for direction: Direction) async throws -> [Category] {
-//        return mockCategories.filter{$0.income == direction}
-//    }
-//}
-
-
-
-
 
 protocol CategoriesServiceProtocol {
     func fetchCategories() async throws -> [Category]
     func fetchCategories(for direction: Direction) async throws -> [Category]
 }
 
-class CategoriesService: CategoriesServiceProtocol {
-    private let networkClient: NetworkClient
 
-    init(networkClient: NetworkClient) {
+final class CategoriesService: CategoriesServiceProtocol {
+    private let networkClient: NetworkClient
+    private let storage: CategoryStorage
+
+    init(networkClient: NetworkClient, storage: CategoryStorage) {
         self.networkClient = networkClient
+        self.storage = storage
     }
 
     func fetchCategories() async throws -> [Category] {
-        let categories: [Category] = try await networkClient.request(
-            endpoint: "/api/v1/categories",
-            method: "GET",
-            requestBody: EmptyRequest()
-        )
-        return categories
+        do {
+            let categories: [Category] = try await networkClient.request(
+                endpoint: "/api/v1/categories",
+                method: "GET",
+                requestBody: EmptyRequest()
+            )
+            try await storage.deleteAll()
+            try await storage.save(categories: categories)
+            return categories
+        } catch {
+            print("⚠️ Failed to load categories from network: \(error). Using cached.")
+            let cached = try await storage.fetchAll()
+            if cached.isEmpty { throw error }
+            return cached
+        }
     }
 
     func fetchCategories(for direction: Direction) async throws -> [Category] {
-        let categories = try await fetchCategories()
-        return categories.filter { $0.income == direction }
+        let all = try await fetchCategories()
+        return all.filter { $0.income == direction }
     }
 }

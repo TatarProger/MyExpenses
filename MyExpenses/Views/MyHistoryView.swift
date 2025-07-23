@@ -19,7 +19,7 @@ struct MyHistoryView: View {
         case byAmount = "По сумме"
     }
 
-    init(direction: Direction, accountId: Int, transactionService: TransactionsServiceProtocol = AppServices.shared.transactionsService) {
+    init(direction: Direction, accountId: Int, transactionService: TransactionsService = AppServices.shared.transactionsService) {
         _viewModel = StateObject(wrappedValue: TransactionHistoryViewModel(
             accountId: accountId,
             direction: direction

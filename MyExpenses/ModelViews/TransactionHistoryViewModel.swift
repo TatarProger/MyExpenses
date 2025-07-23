@@ -106,7 +106,7 @@ class TransactionHistoryViewModel: ObservableObject {
     let accountId: Int
     let direction: Direction
 
-    private let service: TransactionsServiceProtocol
+    private let service: TransactionsService
 
     @Published var transactions: [Transaction] = []
     @Published var startDate: Date {
@@ -134,7 +134,7 @@ class TransactionHistoryViewModel: ObservableObject {
 
     private let calendar = Calendar.current
 
-    init(accountId: Int, direction: Direction, service: TransactionsServiceProtocol = AppServices.shared.transactionsService) {
+    init(accountId: Int, direction: Direction, service: TransactionsService = AppServices.shared.transactionsService) {
         self.accountId = accountId
         self.direction = direction
         self.service = service

@@ -8,40 +8,64 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var monitor = NetworkMonitor()
+    
     var body: some View {
-        TabView {
-            TransactionListView(direction: .outcome, accountId: 92)
-                .tabItem() {
-                    Image("Outcomes")
-                        .renderingMode(.template)
-                    Text("Расходы")
+        
+        ZStack(alignment: .top) {
+            
+            VStack (spacing: 3) {
+                
+                if !monitor.isConnected {
+                    NetworkBanner()
+                        .zIndex(1)
                 }
-            TransactionListView(direction: .income, accountId: 92)
-                .tabItem() {
-                    Image("Incomes")
-                        .renderingMode(.template)
-                    Text("Доходы")
-                }
-            MyBalanceView()
-                .tabItem() {
-                    Image("Account1")
-                        .renderingMode(.template)
-                    Text("Счет")
-                }
-            MyCategoriesView()
-                .tabItem() {
-                    Image("Items1")
-                        .renderingMode(.template)
-                    Text("Статьи")
-                }
-            Text("Настройки")
-                .tabItem() {
-                    Image("Settings")
-                        .renderingMode(.template)
+                
+                TabView {
+                    TransactionListView(direction: .outcome, accountId: 92)
+                        .tabItem() {
+                            Image("Outcomes")
+                                .renderingMode(.template)
+                            Text("Расходы")
+                        }
+                    TransactionListView(direction: .income, accountId: 92)
+                        .tabItem() {
+                            Image("Incomes")
+                                .renderingMode(.template)
+                            Text("Доходы")
+                        }
+                    MyBalanceView()
+                        .tabItem() {
+                            Image("Account1")
+                                .renderingMode(.template)
+                            Text("Счет")
+                        }
+                    MyCategoriesView()
+                        .tabItem() {
+                            Image("Items1")
+                                .renderingMode(.template)
+                            Text("Статьи")
+                        }
                     Text("Настройки")
-                }
-        }.accentColor(Color(red: 42/255, green: 232/255, blue: 129/255))
+                        .tabItem() {
+                            Image("Settings")
+                                .renderingMode(.template)
+                            Text("Настройки")
+                        }
+                }.accentColor(Color(red: 42/255, green: 232/255, blue: 129/255))
+                
 
+            }
+            
+
+            
+            
+
+            
+        }
+        //.ignoresSafeArea(edges: .top)
+        .animation(.easeInOut, value: monitor.isConnected)
     }
     
 

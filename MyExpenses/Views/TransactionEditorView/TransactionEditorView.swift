@@ -21,7 +21,7 @@ struct TransactionEditorView: View {
     }
 
     init(mode: TransactionEditorViewModel.Mode,
-         transactionService: TransactionsServiceProtocol,
+         transactionService: TransactionsService,
          accountService: BankAccountsServiceProtocol,
          categoriesService: CategoriesService,
          direction: Direction,

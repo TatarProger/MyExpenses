@@ -7,7 +7,7 @@
 
 import Foundation
 //
-enum Direction: String, Codable, Equatable {
+enum Direction: String, Codable, Hashable {
     case income
     case outcome
 }
@@ -22,6 +22,7 @@ struct Category: Decodable, Equatable, Identifiable {
         case id, name, emoji, isIncome
     }
 
+    // ✅ Инициализатор для декодирования с сервера
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -36,4 +37,15 @@ struct Category: Decodable, Equatable, Identifiable {
 
         print("✅ Category decoded: id=\(id), name=\(name), income=\(income)")
     }
+
+    // ✅ Ручной инициализатор (например, из базы данных)
+    init(id: Int, name: String, emoji: Character, income: Direction) {
+        self.id = id
+        self.name = name
+        self.emoji = emoji
+        self.income = income
+    }
 }
+
+
+

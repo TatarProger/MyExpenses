@@ -1,17 +1,9 @@
-//
-//  TransactionEntity.swift
-//  MyExpenses
-//
-//  Created by Rishat Zakirov on 19.07.2025.
-//
 
 import SwiftData
 import Foundation
 
-
-
 @Model
-class TransactionEntity {
+final class TransactionEntity: Sendable {
     @Attribute(.unique) var id: Int
     var accountId: Int
     var accountName: String
@@ -28,6 +20,8 @@ class TransactionEntity {
     var comment: String?
     var createdAt: Date
     var updatedAt: Date
+    
+    var isSynced: Bool = false
 
     init(transaction: Transaction) {
         self.id = transaction.id
@@ -48,4 +42,3 @@ class TransactionEntity {
         self.updatedAt = transaction.updatedAt
     }
 }
-
