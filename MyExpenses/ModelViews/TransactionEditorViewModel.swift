@@ -42,16 +42,9 @@ class TransactionEditorViewModel: ObservableObject {
         if case let .edit(transaction) = mode {
             selectedCategory = transaction.category
             amount = "\(transaction.amount)"
-            
-            if let originalServerDate = transaction.transactionDate {
-                date = originalServerDate 
-            } else {
-                date = Date()
-            }
-
+            date = transaction.transactionDate ?? Date()
             comment = transaction.comment ?? ""
         }
-
 
         Task {
             await loadCategories()
@@ -93,21 +86,12 @@ class TransactionEditorViewModel: ObservableObject {
                     )
                 case .create:
                     let mainAccount = try await accountService.fetchBankAcccount()
-                    print("Local date (raw): \(date)")
-                    print("Date (formatted local): \(dateFormatted(date))")
-                    print("Time (formatted local): \(timeFormatted(date))")
-
-                    let isoFormatter = ISO8601DateFormatter()
-                    isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                    isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-                    print("ISO8601 UTC: \(isoFormatter.string(from: date))")
-                    
                     _ = try await transactionService.makeTransaction(
                         id: Int.random(in: 1000...9999),
                         accountId: mainAccount.id,
                         categoryId: category.id,
                         amount: formattedAmount,
-                        transactionDate: localDateAsUTC(date),
+                        transactionDate: date,
                         comment: comment
                     )
                 }
@@ -171,17 +155,5 @@ class TransactionEditorViewModel: ObservableObject {
             amount = result
         }
     }
-    
-    func localDateAsUTC(_ date: Date) -> Date {
-        let timezoneOffset = TimeInterval(TimeZone.current.secondsFromGMT(for: date))
-        return date.addingTimeInterval(-timezoneOffset)
-    }
-    
-    func utcDateAsLocal(_ date: Date) -> Date {
-        let offset = TimeInterval(TimeZone.current.secondsFromGMT(for: date))
-        return date.addingTimeInterval(offset)
-    }
-
-
     
 }
