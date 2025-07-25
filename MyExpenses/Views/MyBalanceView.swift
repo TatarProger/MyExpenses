@@ -101,6 +101,8 @@ struct MyBalanceView: View {
                         } else {
                             ProgressView()
                         }
+                        
+                        BarChartView(originalBalances: viewModel.dailyBalances)
 
                         Spacer()
                     }
