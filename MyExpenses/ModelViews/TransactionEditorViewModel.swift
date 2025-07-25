@@ -120,6 +120,7 @@ class TransactionEditorViewModel: ObservableObject {
     }
     
     func dateFormatted(_ date: Date) -> String {
+        print("Дата 😈 \(date)")
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter.string(from: date)

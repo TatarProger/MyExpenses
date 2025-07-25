@@ -1,0 +1,24 @@
+{
+  "originHash" : "77c5e9d22033c3d3e1950236ae82e607a30abca77b82d5f3fa1d88631f128141",
+  "pins" : [
+    {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios",
+      "state" : {
+        "revision" : "a004050748dc197c56256a14dca49a035d74726c",
+        "version" : "4.5.2"
+      }
+    },
+    {
+      "identity" : "lottieviewspmmodule",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TatarProger/LottieViewSpmModule.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e1a2154ec7d1e5bc588e6ff1bf2956f9406c3275"
+      }
+    }
+  ],
+  "version" : 3
+}

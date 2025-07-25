@@ -21,9 +21,6 @@ class TransactionsService {
         return AppServices.shared.categoriesService
     }
 
-    
-    
-    
     private let networkClient: NetworkClient
     private let storage: TransactionStorage
 
@@ -72,7 +69,15 @@ class TransactionsService {
 
     // MARK: - Create Transaction
 
-    func makeTransaction(id: Int, accountId: Int, categoryId: Int, amount: Decimal, transactionDate: Date?, comment: String?) async throws -> TransactionPut {
+    func makeTransaction(
+        id: Int,
+        accountId: Int,
+        categoryId: Int,
+        amount: Decimal,
+        transactionDate: Date?,
+        comment: String?
+    ) async throws -> TransactionPut {
+        
         struct Request: Encodable {
             let accountId: Int
             let categoryId: Int
@@ -81,11 +86,18 @@ class TransactionsService {
             let comment: String?
         }
 
+
+        func newUTC(from date: Date) -> Date {
+            return date.addingTimeInterval(2 * 60 * 60)
+        }
+
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
 
-        let dateString = transactionDate.map { formatter.string(from: $0) }
+        let shiftedDate = transactionDate.map { newUTC(from: $0) }
+        let dateString = shiftedDate.map { formatter.string(from: $0) }
+
 
         let requestBody = Request(
             accountId: accountId,
@@ -100,9 +112,6 @@ class TransactionsService {
             method: "POST",
             requestBody: requestBody
         )
-
-        print(" Отправленный requestBody: \(requestBody)")
-        print(" Полученный ответ: \(result)")
 
         return result
     }
